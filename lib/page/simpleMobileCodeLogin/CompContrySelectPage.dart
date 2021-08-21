@@ -8,11 +8,6 @@ class CompContrySelectPage extends StatelessWidget {
     gifts.forEach((key, value) {
       childs.add(ListTile(
         onTap: () {
-          // ChartConfigStatus
-          // var obj = Provider.of<ChartConfigStatus>(context, listen: false);
-          // obj.config.contryCode = value;
-          // obj.config.writeToSharedPreferences();
-          // obj.refresh();
           Navigator.of(context).pop(value);
         },
         title: Text(key),

@@ -86,29 +86,44 @@ class _SimpleMobileCodeLoginPageState extends State<SimpleMobileCodeLoginPage> {
       }
       _teddyController!.playSuccess();
       _teddyController!.resumeAutoHandDown();
-      var tip = "";
+      // var tip = "";
       // try {
       //   // parseLongInt(mobile ?? "");
       //   int.tryParse(mobile ?? "");
       //   // Int64.t
       // } catch (e) {}
       showProgress(context);
-      _requestGetCode(context, 86, mobile ?? "", cancelToken: _cancelToken)
-          .catchError((err) {
-        tip = err;
-      }).whenComplete(() {
+      DioAdapter()
+          .getRequest<void>(
+        "auth",
+        "/getcode",
+        cancelToken: _cancelToken,
+        queryParameters: {
+          "mobile": mobile ?? "",
+          "contryCode": "86",
+        },
+        sign: true,
+      )
+          .then((res) {
         hideProgress(context);
-        if (tip.length > 0) {
-          _teddyController?.playFail();
-          alert(context, tip);
-        } else {
-          // print("验证码发送成功");
-          showAnimatePage(
-            context,
-            PinCodeVerificationPage(contry: 86, mobile: mobile ?? ""),
-            replace: true, // a random number, please don't call xD
-          );
+        if (!mounted || res.canced) {
+          return;
         }
+
+        if (res.code != 0) {
+          _teddyController?.playFail();
+          alert(context, res.msg, cb: () => Navigator.of(context).pop());
+          return;
+        }
+        if (res.msg != "") {
+          ScaffoldMessenger.maybeOf(context)?.showSnackBar(
+              SnackBar(content: Styled.text(res.msg).fontSize(13)));
+        }
+        showAnimatePage(
+          context,
+          PinCodeVerificationPage(contry: 86, mobile: mobile ?? ""),
+          replace: true, // a random number, please don't call xD
+        );
       });
     };
   }
@@ -243,29 +258,29 @@ class _SimpleMobileCodeLoginPageState extends State<SimpleMobileCodeLoginPage> {
   }
 }
 
-Future<void> Function(
-  BuildContext context,
-  int contry,
-  String mobile, {
-  CancelToken? cancelToken,
-}) _requestGetCode = (BuildContext context, contry, mobile,
-        {CancelToken? cancelToken}) =>
-    Future.error("未初始化");
+// Future<void> Function(
+//   BuildContext context,
+//   int contry,
+//   String mobile, {
+//   CancelToken? cancelToken,
+// }) _requestGetCode = (BuildContext context, contry, mobile,
+//         {CancelToken? cancelToken}) =>
+//     Future.error("未初始化");
 
-late Future<void> Function(
-  BuildContext context,
-  int contry,
-  String mobile,
-  String code, {
-  CancelToken? cancelToken,
-}) _requestCodeLogin = (
-  BuildContext context,
-  int contry,
-  String mobile,
-  String code, {
-  CancelToken? cancelToken,
-}) =>
-    Future.error("未初始化");
+// late Future<void> Function(
+//   BuildContext context,
+//   int contry,
+//   String mobile,
+//   String code, {
+//   CancelToken? cancelToken,
+// }) _requestCodeLogin = (
+//   BuildContext context,
+//   int contry,
+//   String mobile,
+//   String code, {
+//   CancelToken? cancelToken,
+// }) =>
+//     Future.error("未初始化");
 
 // late Future<void> Function(
 //   int contry,
@@ -273,25 +288,25 @@ late Future<void> Function(
 //   CancelToken? cancelToken,
 // }) _requestGetCode;
 
-void registerGetCodeHandle(
-    Future<void> Function(
-  BuildContext context,
-  int contry,
-  String mobile, {
-  CancelToken? cancelToken,
-})
-        fun) {
-  _requestGetCode = fun;
-}
+// void registerGetCodeHandle(
+//     Future<void> Function(
+//   BuildContext context,
+//   int contry,
+//   String mobile, {
+//   CancelToken? cancelToken,
+// })
+//         fun) {
+//   _requestGetCode = fun;
+// }
 
-void registerCodeLoginHandle(
-    Future<void> Function(
-  BuildContext context,
-  int contry,
-  String mobile,
-  String code, {
-  CancelToken? cancelToken,
-})
-        fun) {
-  _requestCodeLogin = fun;
-}
+// void registerCodeLoginHandle(
+//     Future<void> Function(
+//   BuildContext context,
+//   int contry,
+//   String mobile,
+//   String code, {
+//   CancelToken? cancelToken,
+// })
+//         fun) {
+//   _requestCodeLogin = fun;
+// }

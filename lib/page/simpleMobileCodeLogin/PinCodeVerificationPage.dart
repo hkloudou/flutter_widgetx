@@ -144,20 +144,47 @@ class _PinCodeVerificationPageState extends State<PinCodeVerificationPage> {
             onCompleted: (v) {
               var tip = "";
               showProgress(context);
-              _requestCodeLogin(context, widget.contry, widget.mobile, v)
-                  .catchError((err) {
-                tip = err;
-              }).whenComplete(() {
+              DioAdapter()
+                  .getRequest<void>(
+                "auth",
+                "/getcode",
+                cancelToken: _cancelToken,
+                queryParameters: {
+                  "mobile": widget.mobile,
+                  "contryCode": widget.contry,
+                  "code": v,
+                },
+                sign: true,
+              )
+                  .then((res) {
                 hideProgress(context);
-                if (tip.length > 0) {
-                  alert(context, tip, cb: () {
+                if (res.code != 0) {
+                  alert(context, res.msg, cb: () {
                     textEditingController.clear();
                     FocusScope.of(context).requestFocus(_focusNode);
                   });
-                } else {
-                  Navigator.of(context).pop();
+                  return;
                 }
+                if (res.msg != "") {
+                  ScaffoldMessenger.maybeOf(context)?.showSnackBar(
+                      SnackBar(content: Styled.text(res.msg).fontSize(13)));
+                }
+                Navigator.of(context).pop();
               });
+              // _requestCodeLogin(context, widget.contry, widget.mobile, v)
+              //     .catchError((err) {
+              //   tip = err;
+              // }).whenComplete(() {
+              //   hideProgress(context);
+              //   if (tip.length > 0) {
+              //     alert(context, tip, cb: () {
+              //       textEditingController.clear();
+              //       FocusScope.of(context).requestFocus(_focusNode);
+              //     });
+              //   } else {
+              //     Navigator.of(context).pop();
+              //   }
+              // });
             },
             onChanged: (value) {
               // print(value);
@@ -183,23 +210,54 @@ class _PinCodeVerificationPageState extends State<PinCodeVerificationPage> {
                     .gestures(
                         behavior: HitTestBehavior.opaque,
                         onTap: () {
-                          var tip = "";
+                          // var tip = "";
                           showProgress(context);
-                          _requestGetCode(context, widget.contry, widget.mobile)
-                              .catchError((err) {
-                            tip = err;
-                          }).whenComplete(() {
+                          DioAdapter()
+                              .getRequest<void>(
+                            "auth",
+                            "/getcode",
+                            cancelToken: _cancelToken,
+                            queryParameters: {
+                              "mobile": widget.mobile,
+                              "contryCode": widget.contry,
+                            },
+                            sign: true,
+                          )
+                              .then((res) {
                             hideProgress(context);
+
+                            if (!mounted || res.canced) {
+                              return;
+                            }
                             textEditingController.clear();
-                            if (tip.length > 0) {
-                              alert(context, tip, cb: () {
-                                FocusScope.of(context).requestFocus(_focusNode);
-                              });
-                            } else {
-                              FocusScope.of(context).requestFocus(_focusNode);
-                              reGetCountdown();
+                            if (res.code != 0) {
+                              alert(context, res.msg,
+                                  cb: () => Navigator.of(context).pop());
+                              return;
+                            }
+                            if (res.msg != "") {
+                              ScaffoldMessenger.maybeOf(context)?.showSnackBar(
+                                  SnackBar(
+                                      content:
+                                          Styled.text(res.msg).fontSize(13)));
                             }
                           });
+
+                          // _requestGetCode(context, widget.contry, widget.mobile)
+                          //     .catchError((err) {
+                          //   tip = err;
+                          // }).whenComplete(() {
+                          //   hideProgress(context);
+                          //   textEditingController.clear();
+                          //   if (tip.length > 0) {
+                          //     alert(context, tip, cb: () {
+                          //       FocusScope.of(context).requestFocus(_focusNode);
+                          //     });
+                          //   } else {
+                          //     FocusScope.of(context).requestFocus(_focusNode);
+                          //     reGetCountdown();
+                          //   }
+                          // });
                         })
                 : Styled.text(_codeCountdownStr)
                     .fontSize(16)
