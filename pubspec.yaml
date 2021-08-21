@@ -23,7 +23,7 @@ dependencies:
   corex:
     git:
       url: git@gitlab.me:flutter/corex.git
-      ref: tags/v1.0.5
+      ref: tags/v1.0.8
   flutter_vertical_marquee:
     git:
       url: git@gitlab.me:flutter/flutter_vertical_marquee.git
@@ -32,3 +32,4 @@ dependencies:
     git:
       url: git@gitlab.me:flutter/flutter_richappbar.git
       ref: tags/v1.0.4
+      
