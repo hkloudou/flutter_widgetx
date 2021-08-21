@@ -13,4 +13,4 @@ dependencies:
   corex:
     git:
       url: git@gitlab.me:flutter/corex.git
-      ref: tags/v1.0.1
+      ref: tags/v1.0.2
