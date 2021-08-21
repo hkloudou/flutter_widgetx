@@ -8,6 +8,20 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.2.0"
+  async:
+    dependency: transitive
+    description:
+      name: async
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.8.2"
+  carousel_slider:
+    dependency: "direct main"
+    description:
+      name: carousel_slider
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "4.0.0"
   characters:
     dependency: transitive
     description:
@@ -33,8 +47,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "tags/v1.0.2"
-      resolved-ref: "5aacc23d24629f38ab6ba15db7342ff915d5689c"
+      ref: "tags/v1.0.5"
+      resolved-ref: "7543d2391a178d0ee9872abde321fc37e2cee600"
       url: "git@gitlab.me:flutter/corex.git"
     source: git
     version: "0.0.1"
@@ -45,6 +59,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.0.1"
+  date_format:
+    dependency: "direct main"
+    description:
+      name: date_format
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.4"
   device_info:
     dependency: transitive
     description:
@@ -80,11 +101,25 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "6.1.2"
+  flare_flutter:
+    dependency: "direct main"
+    description:
+      name: flare_flutter
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.0.2"
   flutter:
     dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_blurhash:
+    dependency: "direct main"
+    description:
+      name: flutter_blurhash
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.6.0"
   flutter_markdown:
     dependency: transitive
     description:
@@ -92,6 +127,31 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.6.4"
+  flutter_richappbar:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: "tags/v1.0.4"
+      resolved-ref: "9db1889bdef4931a76d950b477b1e7e6d13419d6"
+      url: "git@gitlab.me:flutter/flutter_richappbar.git"
+    source: git
+    version: "1.0.2"
+  flutter_spinkit:
+    dependency: "direct main"
+    description:
+      name: flutter_spinkit
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "5.0.0"
+  flutter_vertical_marquee:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: "tags/v1.0.3"
+      resolved-ref: "0bbed6251147c00c061ab1f74e74623ada3da4f3"
+      url: "git@gitlab.me:flutter/flutter_vertical_marquee.git"
+    source: git
+    version: "0.2.4"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -118,6 +178,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "4.0.1"
+  lint:
+    dependency: transitive
+    description:
+      name: lint
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.6.0"
   markdown:
     dependency: transitive
     description:
@@ -148,6 +215,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.0"
+  overlay_support:
+    dependency: "direct main"
+    description:
+      name: overlay_support
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.2.1"
   package_info:
     dependency: transitive
     description:
@@ -183,6 +257,20 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.3"
+  pedantic:
+    dependency: transitive
+    description:
+      name: pedantic
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.11.1"
+  pin_code_fields:
+    dependency: "direct main"
+    description:
+      name: pin_code_fields
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "7.3.0"
   platform:
     dependency: transitive
     description:
@@ -211,6 +299,27 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "6.0.0"
+  pull_to_refresh:
+    dependency: "direct main"
+    description:
+      name: pull_to_refresh
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.0"
+  qr:
+    dependency: transitive
+    description:
+      name: qr
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.1.0"
+  qr_flutter:
+    dependency: "direct main"
+    description:
+      name: qr_flutter
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "4.0.0"
   shared_preferences:
     dependency: transitive
     description:
@@ -272,6 +381,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.1.0"
+  styled_widget:
+    dependency: "direct main"
+    description:
+      name: styled_widget
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.3.1+2"
   term_glyph:
     dependency: transitive
     description:

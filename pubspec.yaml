@@ -10,7 +10,25 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  carousel_slider: ^4.0.0
+  flutter_blurhash: ^0.6.0
+  styled_widget: ^0.3.1
+  date_format: ^2.0.4
+  qr_flutter: ^4.0.0
+  flutter_spinkit: ^5.0.0
+  pull_to_refresh: ^2.0.0
+  overlay_support: ^1.2.1
+  flare_flutter: ^3.0.2
+  pin_code_fields: ^7.3.0
   corex:
     git:
       url: git@gitlab.me:flutter/corex.git
-      ref: tags/v1.0.2
+      ref: tags/v1.0.5
+  flutter_vertical_marquee:
+    git:
+      url: git@gitlab.me:flutter/flutter_vertical_marquee.git
+      ref: tags/v1.0.3
+  flutter_richappbar:
+    git:
+      url: git@gitlab.me:flutter/flutter_richappbar.git
+      ref: tags/v1.0.4
