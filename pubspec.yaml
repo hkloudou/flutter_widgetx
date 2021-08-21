@@ -21,9 +21,10 @@ dependencies:
   flare_flutter: ^3.0.2
   pin_code_fields: ^7.3.0
   corex:
-    git:
-      url: git@gitlab.me:flutter/corex.git
-      ref: tags/v1.0.9
+    path: ../corex
+    # git:
+    #   url: git@gitlab.me:flutter/corex.git
+    #   ref: tags/v1.0.9
   flutter_vertical_marquee:
     git:
       url: git@gitlab.me:flutter/flutter_vertical_marquee.git
