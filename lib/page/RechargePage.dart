@@ -7,6 +7,7 @@ import 'package:flutter_richappbar/flutter_richappbar.dart';
 import 'package:styled_widget/styled_widget.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:widgetx/page/AssetHistoryPage.dart';
+import 'package:date_format/date_format.dart' as dfmt;
 
 class RechargePage extends StatefulWidget {
   @override
@@ -23,6 +24,8 @@ class RechargePage extends StatefulWidget {
 class _RechargePageState extends State<RechargePage> {
   CancelToken? _cancelToken;
   String addr = "";
+  int createdAt = 0;
+  int expiredAt = 0;
   @override
   initState() {
     _cancelToken = CancelToken();
@@ -38,7 +41,7 @@ class _RechargePageState extends State<RechargePage> {
   Widget _getQrcode() {
     return [
       Image.asset(
-        "packages/flutter_uibox/assets/images/qrcode_border.png",
+        "packages/widgetx/assets/images/qrcode_border.png",
         width: 200,
         height: 200,
       ),
@@ -69,7 +72,7 @@ class _RechargePageState extends State<RechargePage> {
         [
           Styled.text(
                   "${widget.asset.toUpperCase()}充值地址 (${widget.chian.toUpperCase()})")
-              .textColor(Color(0xFF909399))
+              .textColor(EColor.second)
               .fontSize(12)
               .alignment(Alignment.centerLeft),
           Styled.text(
@@ -77,9 +80,9 @@ class _RechargePageState extends State<RechargePage> {
           )
               .fontSize(13)
               .fontWeight(FontWeight.w500)
-              .textColor(Colors.black)
+              .textColor(EColor.main)
               // .animate(Duration(milliseconds: 200), Curves.ease)
-              .padding(right: 12)
+              .padding(right: 12),
         ].toColumn(crossAxisAlignment: CrossAxisAlignment.start).expanded(),
         Styled.icon(Icons.copy, size: 16)
       ]
@@ -103,13 +106,66 @@ class _RechargePageState extends State<RechargePage> {
     ];
   }
 
+  List<Widget> _getExt(BuildContext context) {
+    var extStyle = TextStyle(
+        color: EColor.second, fontSize: 10, fontStyle: FontStyle.normal);
+    return [
+      createdAt > 0
+          ? Styled.text(
+              "创建时间：" +
+                  dfmt.formatDate(
+                      DateTime.fromMillisecondsSinceEpoch(createdAt * 1000), [
+                    dfmt.yyyy,
+                    "年",
+                    dfmt.mm,
+                    "月",
+                    dfmt.dd,
+                    " ",
+                    dfmt.HH,
+                    ":",
+                    dfmt.nn,
+                    ":",
+                    dfmt.ss
+                  ]),
+              style: extStyle)
+          : Container(),
+      expiredAt > 0
+          ? Styled.text(
+              "过期时间：" +
+                  dfmt.formatDate(
+                      DateTime.fromMillisecondsSinceEpoch(expiredAt * 1000), [
+                    dfmt.yyyy,
+                    "年",
+                    dfmt.mm,
+                    "月",
+                    dfmt.dd,
+                    " ",
+                    dfmt.HH,
+                    ":",
+                    dfmt.nn,
+                    ":",
+                    dfmt.ss
+                  ]),
+              style: extStyle)
+          : (addr == ""
+              ? Container()
+              : Styled.text("过期时间：永久有效", style: extStyle)),
+    ];
+  }
+
   Widget _getTop(BuildContext context) {
+    // var exTimeSize = 11.00;
+    // var extColor = Theme.of(context).primaryColor;
+
     return [
       _getQrcode(),
       ..._getAddrAndParseBtn(context),
+      _getExt(context)
+          .toColumn(crossAxisAlignment: CrossAxisAlignment.start)
+          .height(36),
     ]
         .toColumn()
-        .padding(bottom: 30)
+        .padding(bottom: 16)
         .backgroundColor(Colors.white)
         .clipRRect(
           bottomLeft: 30,
@@ -157,12 +213,14 @@ class _RechargePageState extends State<RechargePage> {
           ({required child}) => RichAppBarPage(
             body: child,
             title: "${widget.asset} 充值",
+            controler: RickRefreshControler(initialRefresh: true),
             onRefresh: () async {
-              setState(() {
-                addr = "";
-              });
+              // print("RechargePage onRefresh");
+              // setState(() {
+              //   addr = "";
+              // });
               await DioAdapter()
-                  .getRequest<String>(
+                  .getRequest<Map<String, dynamic>>(
                       "asset", "/getaddr/${widget.asset}/${widget.chian}",
                       cancelToken: _cancelToken, sign: true)
                   .then((res) {
@@ -178,7 +236,9 @@ class _RechargePageState extends State<RechargePage> {
                       SnackBar(content: Styled.text(res.msg).fontSize(13)));
                 }
                 setState(() {
-                  addr = res.data ?? "";
+                  addr = res.data?["addr"] ?? "";
+                  createdAt = res.data?["createdAt"] ?? 0;
+                  expiredAt = res.data?["expiredAt"] ?? 0;
                 });
               });
             },

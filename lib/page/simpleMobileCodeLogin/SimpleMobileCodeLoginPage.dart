@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:corex/corex.dart';
@@ -10,6 +11,7 @@ import 'package:flare_flutter/flare.dart';
 import 'package:flare_flutter/flare_controls.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:styled_widget/styled_widget.dart';
+import 'package:provider/provider.dart';
 // import '../../core/core.dart';
 part './bear/input_helper.dart';
 part './bear/signin_button.dart';
@@ -18,9 +20,10 @@ part './bear/tracking_text_input.dart';
 part './PinCodeVerificationPage.dart';
 part './CompContrySelectPage.dart';
 
+
 getFlareActor({
   FlareControls? teddyController,
-  String filename = "packages/flutter_uibox/assets/images/Teddy.flr",
+  String filename = "packages/widgetx/assets/images/Teddy.flr",
   Alignment alignment = Alignment.bottomCenter,
   BoxFit fit: BoxFit.contain,
 }) =>
@@ -109,7 +112,7 @@ class _SimpleMobileCodeLoginPageState extends State<SimpleMobileCodeLoginPage> {
         if (!mounted || res.canced) {
           return;
         }
-
+        print("res:$res");
         if (res.code != 0) {
           _teddyController?.playFail();
           alert(context, res.msg, cb: () => Navigator.of(context).pop());

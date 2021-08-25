@@ -77,7 +77,7 @@ class _PinCodeVerificationPageState extends State<PinCodeVerificationPage> {
       body: [
         [
           FlareActor(
-            "packages/flutter_uibox/assets/images/otp.flr",
+            "packages/widgetx/assets/images/otp.flr",
             animation: "otp",
             fit: BoxFit.fitHeight,
             alignment: Alignment.center,
@@ -145,9 +145,9 @@ class _PinCodeVerificationPageState extends State<PinCodeVerificationPage> {
               var tip = "";
               showProgress(context);
               DioAdapter()
-                  .getRequest<void>(
+                  .getRequest<Map<String, dynamic>>(
                 "auth",
-                "/getcode",
+                "/login",
                 cancelToken: _cancelToken,
                 queryParameters: {
                   "mobile": widget.mobile,
@@ -163,12 +163,20 @@ class _PinCodeVerificationPageState extends State<PinCodeVerificationPage> {
                     textEditingController.clear();
                     FocusScope.of(context).requestFocus(_focusNode);
                   });
-                  return;
+                  return Future.value();
                 }
                 if (res.msg != "") {
                   ScaffoldMessenger.maybeOf(context)?.showSnackBar(
                       SnackBar(content: Styled.text(res.msg).fontSize(13)));
                 }
+                var userName =
+                    (res.data?["userName"] ?? res.data?["UserName"]) as String?;
+                var token =
+                    (res.data?["token"] ?? res.data?["Token"]) as String?;
+                if (userName == null || token == null) {
+                  return Future.error("参数错误");
+                }
+                context.read<AuthStatus>().login(userName, base64Decode(token));
                 Navigator.of(context).pop();
               });
               // _requestCodeLogin(context, widget.contry, widget.mobile, v)
@@ -227,13 +235,13 @@ class _PinCodeVerificationPageState extends State<PinCodeVerificationPage> {
                             hideProgress(context);
 
                             if (!mounted || res.canced) {
-                              return;
+                              return Future.value();
                             }
                             textEditingController.clear();
                             if (res.code != 0) {
                               alert(context, res.msg,
                                   cb: () => Navigator.of(context).pop());
-                              return;
+                              return Future.value();
                             }
                             if (res.msg != "") {
                               ScaffoldMessenger.maybeOf(context)?.showSnackBar(

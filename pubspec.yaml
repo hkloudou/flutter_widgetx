@@ -30,6 +30,10 @@ dependencies:
       url: git@gitlab.me:flutter/flutter_vertical_marquee.git
       ref: tags/v1.0.3
   flutter_richappbar:
-    git:
-      url: git@gitlab.me:flutter/flutter_richappbar.git
-      ref: tags/v1.0.4
+    path: /Users/undefined/project/flutter/flutter_richappbar
+    # git:
+    #   url: git@gitlab.me:flutter/flutter_richappbar.git
+    #   ref: tags/v1.0.2
+flutter:
+  assets:
+    - assets/images/
