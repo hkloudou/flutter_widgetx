@@ -189,7 +189,7 @@ class _RechargePageState extends State<RechargePage> {
       Styled.text(
               '1. 禁止向${widget.asset}地址充值其他资产，包括其他关联资产，否则将无法找回。\n2. 充值需要${widget.minConfirm}个网络节点确认才能到账。',
               style: TextStyle(height: 1.8))
-          .textColor(Colors.grey.shade600)
+          .textColor(EColor.normal)
           // .letterSpacing(1.1)
           .fontSize(12)
           .padding(vertical: 4),
