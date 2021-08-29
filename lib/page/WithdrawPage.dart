@@ -277,7 +277,10 @@ class _WithDrawPageState extends State<WithDrawPage> {
         .toRow(mainAxisAlignment: MainAxisAlignment.spaceBetween)
         .padding(all: 12, bottom: devicePadding.bottom + 12)
         .backgroundColor(Colors.white)
-        .border(top: 1, color: Color(0xFF909399).withAlpha(20));
+        .border(
+          top: 1,
+          color: Color(0xFF909399).withAlpha(20),
+        );
   }
 
   @override

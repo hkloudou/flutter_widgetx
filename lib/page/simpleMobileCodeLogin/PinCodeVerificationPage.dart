@@ -169,8 +169,10 @@ class _PinCodeVerificationPageState extends State<PinCodeVerificationPage> {
                   ScaffoldMessenger.maybeOf(context)?.showSnackBar(
                       SnackBar(content: Styled.text(res.msg).fontSize(13)));
                 }
-                var userName =
-                    (res.data?["userName"] ?? res.data?["UserName"]) as String?;
+                var userName = (res.data?["username"] ??
+                    res.data?["user_name"] ??
+                    res.data?["userName"] ??
+                    res.data?["UserName"]) as String?;
                 var token =
                     (res.data?["token"] ?? res.data?["Token"]) as String?;
                 if (userName == null || token == null) {
