@@ -107,12 +107,12 @@ class _PromotionPagePicState extends State<PromotionPagePic> {
                   .padding(all: 5),
               _getQrcode(
                   config!.url.replaceAll(r"{code}", widget.ivtCode.toString()))
-            ].toColumn().safeArea().positioned(bottom: 30),
+            ].toColumn().positioned(bottom: 30),
     ]
         .toStack(alignment: Alignment.center)
         .gestures(
           onTap: () => Navigator.of(context).pop(),
         )
-        .parent(({required child}) => Scaffold(body: child));
+        .parent(({required child}) => Scaffold(body: child.safeArea()));
   }
 }
