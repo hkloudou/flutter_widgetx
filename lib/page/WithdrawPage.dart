@@ -136,7 +136,8 @@ class _WithDrawPageState extends State<WithDrawPage> {
                             u.usdt?.free.toStringAsRoundDown(2) ?? "0";
                         setState(() {
                           // _real = (u.usdt?.free ?? 0) * 0.99;
-                          _real = widget.feeCalcer(u.usdt?.free ?? 0);
+                          _real = widget
+                              .feeCalcer(double.tryParse(cAmount.text) ?? 0);
                         });
                       },
                       child: Styled.text("全部提现")
