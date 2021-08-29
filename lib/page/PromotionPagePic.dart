@@ -31,8 +31,6 @@ class _PromotionPagePicState extends State<PromotionPagePic> {
   CfgPromotionPost? config;
   @override
   initState() {
-    // _cancelToken = CancelToken();
-    // print(Random().nextInt(widget.item.configs.length - 1));
     super.initState();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       var configs = context.read<CfgBaseStatus>().config?.promotions ?? [];
@@ -45,7 +43,6 @@ class _PromotionPagePicState extends State<PromotionPagePic> {
         }
       }
       setState(() {});
-      // print("config:${json.encode(config)}");
     });
   }
 
