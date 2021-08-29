@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 import 'package:corex/corex.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +36,7 @@ class _PromotionPagePicState extends State<PromotionPagePic> {
     super.initState();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       var configs = context.read<CfgBaseStatus>().config?.promotions ?? [];
+
       if (configs.length > 0) {
         try {
           config = configs.elementAt(new Random().nextInt(configs.length));
@@ -42,6 +44,8 @@ class _PromotionPagePicState extends State<PromotionPagePic> {
           config = configs.first;
         }
       }
+      setState(() {});
+      // print("config:${json.encode(config)}");
     });
   }
 
@@ -107,7 +111,7 @@ class _PromotionPagePicState extends State<PromotionPagePic> {
                   .padding(all: 5),
               _getQrcode(
                   config!.url.replaceAll(r"{code}", widget.ivtCode.toString()))
-            ].toColumn().positioned(bottom: 30).safeArea(),
+            ].toColumn().positioned(bottom: 30 + 50),
     ]
         .toStack(alignment: Alignment.center)
         .gestures(
