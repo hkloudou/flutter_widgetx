@@ -10,3 +10,4 @@ export 'page/SimpleNotificationCenterPage.dart'
 export 'page/AssetHistoryPage.dart' show AssetsHistoryPage;
 export 'page/simpleMobileCodeLogin/SimpleMobileCodeLoginPage.dart'
     show SimpleMobileCodeLoginPage;
+export 'page/PromotionPagePic.dart' show PromotionPagePic;
