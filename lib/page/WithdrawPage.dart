@@ -22,7 +22,7 @@ class WithDrawPage extends StatefulWidget {
   }
 
   WithDrawPage(
-      {this.minAmount = 10, required this.feeCalcer, required this.feeTip});
+      {this.minAmount = 100, required this.feeCalcer, required this.feeTip});
   final double minAmount;
   final double Function(double val) feeCalcer;
   final String feeTip;
@@ -135,7 +135,8 @@ class _WithDrawPageState extends State<WithDrawPage> {
                         cAmount.text =
                             u.usdt?.free.toStringAsRoundDown(2) ?? "0";
                         setState(() {
-                          _real = (u.usdt?.free ?? 0) * 0.99;
+                          // _real = (u.usdt?.free ?? 0) * 0.99;
+                          _real = widget.feeCalcer(u.usdt?.free ?? 0);
                         });
                       },
                       child: Styled.text("全部提现")
