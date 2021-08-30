@@ -78,7 +78,8 @@ class _AssetsHistoryPageState extends State<AssetsHistoryPage> {
   Widget _getItem(BuildContext context, AssetHistory item) {
     var obj = widget.status.singleWhere((e) => e.filter == item.reson,
         orElse: () => AssetsHistoryPageSlot(filter: "", cn: ""));
-    return (obj.callBack ?? _getDefaultItem).call(context, "", "", item);
+    return (obj.callBack ?? _getDefaultItem)
+        .call(context, obj.filter, obj.cn, item);
     // switch (item.reson) {
     //   // case "buycard":
     //   //   return _getBuyGiftItem(context, item);
