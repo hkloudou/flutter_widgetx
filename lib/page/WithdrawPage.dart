@@ -318,7 +318,7 @@ class _WithDrawPageState extends State<WithDrawPage> {
               body: child,
               title: "USDT 提现",
               bodyBottom: _getTotal(context, u),
-              // onRefresh: context.read<UserAssetStatus>().init(),
+              onRefresh: () => context.read<UserAssetStatus>().init(),
               actions: [
                 IconButton(
                   icon: Icon(Icons.pending_actions_sharp),
