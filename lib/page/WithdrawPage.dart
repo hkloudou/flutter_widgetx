@@ -236,10 +236,12 @@ class _WithDrawPageState extends State<WithDrawPage> {
                     var tip = "";
 
                     showProgress(context);
-                    DioAdapter().getRequest("asset", "/withdraw/usdt",
+                    DioAdapter().getRequest("asset", "asset.withdraw",
                         sign: true,
                         cancelToken: _cancelToken,
                         queryParameters: {
+                          "group": 0,
+                          "asset": "usdt",
                           "addr": cAddr.text,
                           "amount": cAmount.text,
                         }).then((res) {
