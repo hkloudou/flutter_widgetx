@@ -1,5 +1,11 @@
 part of './AssetHistoryPage.dart';
 
+List<AssetsHistoryPageSlot> defaultSlot = [
+  AssetsHistoryPageSlot(),
+  AssetsHistoryPageSlot(filter: "recharge", cn: "充值"),
+  AssetsHistoryPageSlot(filter: "withdraw", cn: "提现"),
+];
+
 Widget _getDefaultItem(
     BuildContext context, String filter, String cn, AssetHistory e) {
   var style1 = TextStyle(

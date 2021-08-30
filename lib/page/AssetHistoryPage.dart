@@ -27,14 +27,18 @@ class AssetsHistoryPageSlot extends Object {
 
 class AssetsHistoryPage extends StatefulWidget {
   AssetsHistoryPage({this.defaultReson, Key? key, this.status = const []})
-      : super(key: key);
+      : super(key: key) {
+    if (this.status.length == 0) {
+      this.status = defaultSlot;
+    }
+  }
   @override
   State<StatefulWidget> createState() {
     return new _AssetsHistoryPageState();
   }
 
   final String? defaultReson;
-  final List<AssetsHistoryPageSlot> status;
+  List<AssetsHistoryPageSlot> status;
 }
 
 class _AssetsHistoryPageState extends State<AssetsHistoryPage> {
