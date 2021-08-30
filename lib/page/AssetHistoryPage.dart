@@ -29,7 +29,7 @@ class AssetsHistoryPage extends StatefulWidget {
   AssetsHistoryPage({this.defaultReson, Key? key, this.status = const []})
       : super(key: key) {
     if (this.status.length == 0) {
-      this.status = defaultSlot;
+      this.status = _defaultSlots;
     }
   }
   @override
@@ -197,18 +197,18 @@ class _AssetsHistoryPageState extends State<AssetsHistoryPage> {
                 return;
               } else if (res.code != 0) {
                 _refreshController.refreshFailed();
-                toast(res.msg);
-                // ScaffoldMessenger.maybeOf(context)?.hideCurrentSnackBar();
-                // ScaffoldMessenger.maybeOf(context)
-                //     ?.showSnackBar(SnackBar(content: Text("刷新失败，请检查网络")));
+                // toast(res.msg);
+                ScaffoldMessenger.maybeOf(context)?.hideCurrentSnackBar();
+                ScaffoldMessenger.maybeOf(context)
+                    ?.showSnackBar(SnackBar(content: Text("刷新失败，请检查网络")));
                 // alert(context, res.msg, cb: () => Navigator.of(context).pop());
                 return;
               }
               if (res.msg != "") {
-                toast(res.msg);
-                // ScaffoldMessenger.maybeOf(context)?.hideCurrentSnackBar();
-                // ScaffoldMessenger.maybeOf(context)?.showSnackBar(
-                //     SnackBar(content: Styled.text(res.msg).fontSize(13)));
+                // toast(res.msg);
+                ScaffoldMessenger.maybeOf(context)?.hideCurrentSnackBar();
+                ScaffoldMessenger.maybeOf(context)?.showSnackBar(
+                    SnackBar(content: Styled.text(res.msg).fontSize(13)));
               }
               setState(() {
                 // _infos = mergaData(_infos, value.items);
@@ -242,18 +242,18 @@ class _AssetsHistoryPageState extends State<AssetsHistoryPage> {
                 return;
               } else if (res.code != 0) {
                 _refreshController.refreshFailed();
-                toast(res.msg);
-                // ScaffoldMessenger.maybeOf(context)?.hideCurrentSnackBar();
-                // ScaffoldMessenger.maybeOf(context)
-                //     ?.showSnackBar(SnackBar(content: Text("刷新失败，请检查网络")));
+                // toast(res.msg);
+                ScaffoldMessenger.maybeOf(context)?.hideCurrentSnackBar();
+                ScaffoldMessenger.maybeOf(context)
+                    ?.showSnackBar(SnackBar(content: Text("刷新失败，请检查网络")));
                 // alert(context, res.msg, cb: () => Navigator.of(context).pop());
                 return;
               }
               if (res.msg != "") {
-                toast(res.msg);
-                // ScaffoldMessenger.maybeOf(context)?.hideCurrentSnackBar();
-                // ScaffoldMessenger.maybeOf(context)?.showSnackBar(
-                //     SnackBar(content: Styled.text(res.msg).fontSize(13)));
+                // toast(res.msg);
+                ScaffoldMessenger.maybeOf(context)?.hideCurrentSnackBar();
+                ScaffoldMessenger.maybeOf(context)?.showSnackBar(
+                    SnackBar(content: Styled.text(res.msg).fontSize(13)));
               }
               setState(() {
                 _infos = mergaData(_infos, res.data ?? []);
@@ -306,12 +306,13 @@ class _AssetsHistoryPageState extends State<AssetsHistoryPage> {
     if (widget.defaultReson != null &&
         widget.defaultReson!.isNotEmpty &&
         widget.status
-                .where((e) => e.filter.contains("${widget.defaultReson!};"))
+                .where((e) => e.filter == (widget.defaultReson ?? ""))
                 .toSet()
                 .length !=
             0) {
       filter = widget.defaultReson!;
     }
+    // print("filter:$filter widget.defaultReson:${widget.defaultReson}");
     super.initState();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       _scrollController.addListener(() {

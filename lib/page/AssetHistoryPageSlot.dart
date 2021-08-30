@@ -1,6 +1,6 @@
 part of './AssetHistoryPage.dart';
 
-List<AssetsHistoryPageSlot> defaultSlot = [
+List<AssetsHistoryPageSlot> _defaultSlots = [
   AssetsHistoryPageSlot(),
   AssetsHistoryPageSlot(filter: "recharge", cn: "充值"),
   AssetsHistoryPageSlot(filter: "withdraw", cn: "提现"),
