@@ -1,5 +1,69 @@
 part of './AssetHistoryPage.dart';
 
+Widget _getDefaultItem(
+    BuildContext context, String filter, String cn, AssetHistory e) {
+  var style1 = TextStyle(
+      color: EColor.second, fontSize: 12, fontWeight: FontWeight.w300);
+  var style2 =
+      TextStyle(color: EColor.main, fontSize: 13, fontWeight: FontWeight.w600);
+  double pad1 = 8;
+  double pad2 = 6;
+
+  return [
+    Styled.text("$cn")
+        .fontSize(14)
+        .bold()
+        .textColor(EColor.main)
+        .alignment(Alignment.centerLeft)
+        .padding(vertical: 8),
+    [
+      Styled.text("数量(${e.asset == 'voucher' ? '点卡' : e.asset.toUpperCase()})",
+              style: style1)
+          .expanded(flex: 1),
+      Styled.text("状态", style: style1)
+          .alignment(Alignment.center)
+          .expanded(flex: 1),
+      Styled.text("时间", style: style1)
+          .alignment(Alignment.centerRight)
+          .expanded(flex: 2)
+    ].toRow().padding(top: pad1),
+    [
+      Styled.text(
+        "${e.amount.startsWith("-") ? e.amount : "+" + e.amount}",
+        style: style2,
+        overflow: TextOverflow.clip,
+        maxLines: 1,
+      ).expanded(flex: 1),
+      Styled.text(
+        "已完成",
+        style: style2,
+        overflow: TextOverflow.clip,
+        maxLines: 1,
+      )
+          // .textColor(Colors.green)
+          .alignment(Alignment.center)
+          .expanded(flex: 1),
+      Styled.text(
+        // datefor
+        // datefor
+        dfmt.formatDate(DateTime.fromMillisecondsSinceEpoch(e.createdAt), [
+          dfmt.yyyy,
+          "年",
+          dfmt.mm,
+          "月",
+          dfmt.dd,
+          " ",
+          dfmt.HH,
+          ":",
+          dfmt.nn
+        ]),
+        style: style2, overflow: TextOverflow.clip,
+        maxLines: 1,
+      ).alignment(Alignment.centerRight).expanded(flex: 2)
+    ].toRow().padding(top: pad2),
+  ].toColumn();
+}
+
 // String _getCommissionFrom(String str, int str2) {
 //   // var str = meta["from"] as String? ?? "";
 //   // print("from: $str meta:$meta");

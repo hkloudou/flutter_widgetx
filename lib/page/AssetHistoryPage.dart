@@ -12,18 +12,21 @@ import 'package:styled_widget/styled_widget.dart';
 import 'package:date_format/date_format.dart' as dfmt;
 part 'AssetHistoryPageSlot.dart';
 
-var style1 =
-    TextStyle(color: EColor.second, fontSize: 12, fontWeight: FontWeight.w300);
-var style2 =
-    TextStyle(color: EColor.main, fontSize: 13, fontWeight: FontWeight.w600);
-double pad1 = 8;
-double pad2 = 6;
+class AssetsHistoryPageSlot extends Object {
+  final String filter;
+  final String cn;
+  final Widget Function(
+          BuildContext context, String filter, String cn, AssetHistory his)?
+      callBack;
+  AssetsHistoryPageSlot({this.filter = "", this.cn = "全部", this.callBack});
+
+  String toString() {
+    return "$filter:$cn";
+  }
+}
 
 class AssetsHistoryPage extends StatefulWidget {
-  AssetsHistoryPage(
-      {this.defaultReson,
-      Key? key,
-      this.status = const [";全部", "recharge;充值", "withdraw;提现", "system;系统"]})
+  AssetsHistoryPage({this.defaultReson, Key? key, this.status = const []})
       : super(key: key);
   @override
   State<StatefulWidget> createState() {
@@ -31,7 +34,7 @@ class AssetsHistoryPage extends StatefulWidget {
   }
 
   final String? defaultReson;
-  final List<String> status;
+  final List<AssetsHistoryPageSlot> status;
 }
 
 class _AssetsHistoryPageState extends State<AssetsHistoryPage> {
@@ -43,15 +46,12 @@ class _AssetsHistoryPageState extends State<AssetsHistoryPage> {
   String filter = "";
   double _op = 0;
   late ScrollController _scrollController;
-
-  String getResonString(String reson) {
-    return widget.status
-        .firstWhere((e) => e.startsWith(reson), orElse: () {
-          return ";未知";
-        })
-        .split(";")
-        .last;
-  }
+  var style1 = TextStyle(
+      color: EColor.second, fontSize: 12, fontWeight: FontWeight.w300);
+  var style2 =
+      TextStyle(color: EColor.main, fontSize: 13, fontWeight: FontWeight.w600);
+  double pad1 = 8;
+  double pad2 = 6;
 
   List<AssetHistory> mergaData(
       List<AssetHistory> oldItem, List<AssetHistory> newItem) {
@@ -71,75 +71,22 @@ class _AssetsHistoryPageState extends State<AssetsHistoryPage> {
     return tmp;
   }
 
-  Widget _getDefaultItem(BuildContext context, AssetHistory e) {
-    return [
-      Styled.text("${getResonString(e.reson)}")
-          .fontSize(14)
-          .bold()
-          .textColor(EColor.main)
-          .alignment(Alignment.centerLeft)
-          .padding(vertical: 8),
-      [
-        Styled.text("数量(${e.name == 'voucher' ? '点卡' : e.name.toUpperCase()})",
-                style: style1)
-            .expanded(flex: 1),
-        Styled.text("状态", style: style1)
-            .alignment(Alignment.center)
-            .expanded(flex: 1),
-        Styled.text("时间", style: style1)
-            .alignment(Alignment.centerRight)
-            .expanded(flex: 2)
-      ].toRow().padding(top: pad1),
-      [
-        Styled.text(
-          "${e.amount.startsWith("-") ? e.amount : "+" + e.amount}",
-          style: style2,
-          overflow: TextOverflow.clip,
-          maxLines: 1,
-        ).expanded(flex: 1),
-        Styled.text(
-          "已完成",
-          style: style2,
-          overflow: TextOverflow.clip,
-          maxLines: 1,
-        )
-            // .textColor(Colors.green)
-            .alignment(Alignment.center)
-            .expanded(flex: 1),
-        Styled.text(
-          // datefor
-          // datefor
-          dfmt.formatDate(DateTime.fromMillisecondsSinceEpoch(e.createdAt), [
-            dfmt.yyyy,
-            "年",
-            dfmt.mm,
-            "月",
-            dfmt.dd,
-            " ",
-            dfmt.HH,
-            ":",
-            dfmt.nn
-          ]),
-          style: style2, overflow: TextOverflow.clip,
-          maxLines: 1,
-        ).alignment(Alignment.centerRight).expanded(flex: 2)
-      ].toRow().padding(top: pad2),
-    ].toColumn();
-  }
-
   Widget _getItem(BuildContext context, AssetHistory item) {
-    switch (item.reson) {
-      // case "buycard":
-      //   return _getBuyGiftItem(context, item);
-      // case "recharge":
-      //   return _getRechargeItem(context, item);
-      // case "withdraw":
-      //   return _getWithDrawItem(context, item);
-      // case "commission":
-      //   return _getCommissionItem(context, item);
-      default:
-        return _getDefaultItem(context, item);
-    }
+    var obj = widget.status.singleWhere((e) => e.filter == item.reson,
+        orElse: () => AssetsHistoryPageSlot(filter: "", cn: ""));
+    return (obj.callBack ?? _getDefaultItem).call(context, "", "", item);
+    // switch (item.reson) {
+    //   // case "buycard":
+    //   //   return _getBuyGiftItem(context, item);
+    //   // case "recharge":
+    //   //   return _getRechargeItem(context, item);
+    //   // case "withdraw":
+    //   //   return _getWithDrawItem(context, item);
+    //   // case "commission":
+    //   //   return _getCommissionItem(context, item);
+    //   default:
+    //     return _getDefaultItem(context, "", "", item);
+    // }
   }
 
   @override
@@ -178,15 +125,15 @@ class _AssetsHistoryPageState extends State<AssetsHistoryPage> {
                               .map((e) => CupertinoActionSheetAction(
                                     onPressed: () {
                                       setState(() {
-                                        filter = e.split(";").first;
+                                        filter = e.filter;
                                         _infos = [];
                                       });
                                       Navigator.of(ctx).pop();
                                       _refreshController.resetNoData();
                                       _refreshController.requestRefresh();
                                     },
-                                    child: Styled.text(e.split(";").last)
-                                        .textColor(e.split(";").first == filter
+                                    child: Styled.text(e.cn).textColor(
+                                        e.filter == filter
                                             ? Theme.of(context).primaryColor
                                             : EColor.second),
                                   ))
@@ -332,11 +279,10 @@ class _AssetsHistoryPageState extends State<AssetsHistoryPage> {
                   .fontSize(24)
                   .bold(),
               Styled.text(widget.status
-                      .firstWhere((e) => e.startsWith(filter), orElse: () {
-                        return ';';
+                      .firstWhere((e) => e.filter == filter, orElse: () {
+                        return AssetsHistoryPageSlot();
                       })
-                      .split(';')
-                      .last
+                      .cn
                       .replaceAll("全部", ""))
                   .fontSize(13)
                   .textColor(EColor.main)
@@ -367,7 +313,7 @@ class _AssetsHistoryPageState extends State<AssetsHistoryPage> {
     if (widget.defaultReson != null &&
         widget.defaultReson!.isNotEmpty &&
         widget.status
-                .where((e) => e.contains("${widget.defaultReson!};"))
+                .where((e) => e.filter.contains("${widget.defaultReson!};"))
                 .toSet()
                 .length !=
             0) {
