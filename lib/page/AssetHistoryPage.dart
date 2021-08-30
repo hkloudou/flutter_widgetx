@@ -12,27 +12,21 @@ import 'package:styled_widget/styled_widget.dart';
 import 'package:date_format/date_format.dart' as dfmt;
 
 class AssetsHistoryPage extends StatefulWidget {
-  AssetsHistoryPage({this.defaultReson, Key? key}) : super(key: key);
+  AssetsHistoryPage(
+      {this.defaultReson,
+      Key? key,
+      this.status = const [";全部", "recharge;充值", "withdraw;提现", "system;系统"]})
+      : super(key: key);
   @override
   State<StatefulWidget> createState() {
     return new _AssetsHistoryPageState();
   }
 
   final String? defaultReson;
+  final List<String> status;
 }
 
 class _AssetsHistoryPageState extends State<AssetsHistoryPage> {
-  List<String> status = [
-    ";全部",
-    "recharge;充值",
-    "withdraw;提现",
-    // "buycard;点卡购买",
-    // "carduse;点卡消耗",
-    // "profit;盈利",
-    "commission;推广收益",
-    "trade;交易",
-    "system;系统",
-  ];
   RefreshController _refreshController =
       RefreshController(initialRefresh: true);
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
@@ -50,7 +44,7 @@ class _AssetsHistoryPageState extends State<AssetsHistoryPage> {
   double pad2 = 6;
 
   String getResonString(String reson) {
-    return status
+    return widget.status
         .firstWhere((e) => e.startsWith(reson), orElse: () {
           return ";未知";
         })
@@ -730,7 +724,7 @@ class _AssetsHistoryPageState extends State<AssetsHistoryPage> {
                             },
                             child: Styled.text("取消").textColor(EColor.second),
                           ),
-                          actions: status
+                          actions: widget.status
                               .map((e) => CupertinoActionSheetAction(
                                     onPressed: () {
                                       setState(() {
@@ -887,7 +881,7 @@ class _AssetsHistoryPageState extends State<AssetsHistoryPage> {
                   .textColor(Theme.of(context).primaryColor)
                   .fontSize(24)
                   .bold(),
-              Styled.text(status
+              Styled.text(widget.status
                       .firstWhere((e) => e.startsWith(filter), orElse: () {
                         return ';';
                       })
@@ -922,7 +916,7 @@ class _AssetsHistoryPageState extends State<AssetsHistoryPage> {
     _scrollController = ScrollController();
     if (widget.defaultReson != null &&
         widget.defaultReson!.isNotEmpty &&
-        status
+        widget.status
                 .where((e) => e.contains("${widget.defaultReson!};"))
                 .toSet()
                 .length !=
