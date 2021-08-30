@@ -68,7 +68,7 @@ class _WithDrawPageState extends State<WithDrawPage> {
         autovalidateMode: AutovalidateMode.onUserInteraction,
         enabled: u.usdt != null,
         validator: (String? v) {
-          var addr = v ?? "";
+          var addr = (v ?? "").trim();
           if (addr.isEmpty) {
             return "请输入提现地址";
           } else if (!addr.startsWith("T")) {
