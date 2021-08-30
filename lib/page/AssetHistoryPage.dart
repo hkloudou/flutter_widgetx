@@ -80,18 +80,6 @@ class _AssetsHistoryPageState extends State<AssetsHistoryPage> {
         orElse: () => AssetsHistoryPageSlot(filter: "", cn: ""));
     return (obj.callBack ?? _getDefaultItem)
         .call(context, obj.filter, obj.cn, item);
-    // switch (item.reson) {
-    //   // case "buycard":
-    //   //   return _getBuyGiftItem(context, item);
-    //   // case "recharge":
-    //   //   return _getRechargeItem(context, item);
-    //   // case "withdraw":
-    //   //   return _getWithDrawItem(context, item);
-    //   // case "commission":
-    //   //   return _getCommissionItem(context, item);
-    //   default:
-    //     return _getDefaultItem(context, "", "", item);
-    // }
   }
 
   @override
