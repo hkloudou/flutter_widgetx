@@ -73,7 +73,7 @@ class _WithDrawPageState extends State<WithDrawPage> {
             return "请输入提现地址";
           } else if (!addr.startsWith("T")) {
             return "提现地址错误";
-          } else if (addr.length < widget.minAmount) {
+          } else if (addr.length != 34) {
             return "提现地址长度错误";
           }
         },
