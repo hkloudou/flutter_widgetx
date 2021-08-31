@@ -4,6 +4,8 @@ List<AssetsHistoryPageSlot> _defaultSlots = [
   AssetsHistoryPageSlot(),
   AssetsHistoryPageSlot(filter: "recharge", cn: "充值"),
   AssetsHistoryPageSlot(filter: "withdraw", cn: "提现"),
+  AssetsHistoryPageSlot(filter: "commission", cn: "推广收益"),
+  AssetsHistoryPageSlot(filter: "system", cn: "系统"),
 ];
 
 Widget _getDefaultItem(

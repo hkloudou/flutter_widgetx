@@ -233,7 +233,6 @@ class _WithDrawPageState extends State<WithDrawPage> {
                       "提现：\n${cAmount.text} USDT\n到：\n${cAddr.text}\n此操作不可逆，请认真核对地址\n请确认？",
                       cancelBtn: true, cb: () {
                     FocusScope.of(context).requestFocus(FocusNode());
-                    var tip = "";
 
                     showProgress(context);
                     DioAdapter().getRequest("system", "asset.withdraw",
