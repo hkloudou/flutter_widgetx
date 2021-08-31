@@ -391,13 +391,13 @@ Widget _getDefaultItem(
 
 Widget getRechargeUserAssetHistoryDefaultItem(
     BuildContext context, String filter, String cn, AssetHistory e) {
-  Map<int, String> _steps = {
-    0: "确认中",
-    1: "到账中",
-    // 2: "转账中",
-    10: "成功",
-    11: "失败",
-  };
+  // Map<int, String> _steps = {
+  //   0: "确认中",
+  //   1: "到账中",
+  //   // 2: "转账中",
+  //   10: "成功",
+  //   11: "失败",
+  // };
   Map<int, Color> _colors = {
     0: Colors.yellow.shade900,
     1: Colors.yellow.shade900,
@@ -426,7 +426,7 @@ Widget getRechargeUserAssetHistoryDefaultItem(
       Styled.text("${e.amount.startsWith("-") ? e.amount : "+" + e.amount}",
               style: style2)
           .expanded(flex: 1),
-      Styled.text(_steps[e.step] ?? "未知", style: style2)
+      Styled.text("完成", style: style2)
           .textColor(_colors[e.step] ?? EColor.main)
           .alignment(Alignment.center)
           .expanded(flex: 1),
@@ -467,7 +467,7 @@ Widget getRechargeUserAssetHistoryDefaultItem(
                   color: Colors.black.withOpacity(animation.value),
                   child: [
                     [
-                      Styled.text("充值 - ${_steps[e.step] ?? "未知"}")
+                      Styled.text("充值 - 完成")
                           .fontSize(16)
                           .bold()
                           .padding(vertical: 10),
