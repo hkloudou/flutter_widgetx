@@ -236,7 +236,7 @@ class _WithDrawPageState extends State<WithDrawPage> {
                     var tip = "";
 
                     showProgress(context);
-                    DioAdapter().getRequest("asset", "asset.withdraw",
+                    DioAdapter().getRequest("system", "asset.withdraw",
                         sign: true,
                         cancelToken: _cancelToken,
                         queryParameters: {

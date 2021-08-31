@@ -221,7 +221,7 @@ class _RechargePageState extends State<RechargePage> {
               // });
               await DioAdapter()
                   .getRequest<Map<String, dynamic>>(
-                      "asset", "/getaddr/${widget.asset}/${widget.chian}",
+                      "system", "/wallet.getaddr.${widget.chian}",
                       cancelToken: _cancelToken, sign: true)
                   .then((res) {
                 if (!mounted || res.canced) {
