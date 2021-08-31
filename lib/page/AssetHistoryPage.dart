@@ -63,7 +63,7 @@ class _AssetsHistoryPageState extends State<AssetsHistoryPage> {
     newItem.forEach((e) {
       if (true ==
           oldItem.every((e2) {
-            if (e2.iD == e.iD) {
+            if (e2.id == e.id) {
               return false;
             }
             return true;
@@ -71,7 +71,7 @@ class _AssetsHistoryPageState extends State<AssetsHistoryPage> {
         tmp.add(e);
       }
     });
-    tmp.sort((left, right) => right.iD.compareTo(left.iD));
+    tmp.sort((left, right) => right.id.compareTo(left.id));
     return tmp;
   }
 
@@ -231,8 +231,8 @@ class _AssetsHistoryPageState extends State<AssetsHistoryPage> {
               _min = 0;
             } else {
               _infos.forEach((e) {
-                if (e.iD < _min) {
-                  _min = e.iD;
+                if (e.id < _min) {
+                  _min = e.id;
                 }
               });
             }
