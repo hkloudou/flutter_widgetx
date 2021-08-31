@@ -255,14 +255,15 @@ class _AssetsHistoryPageState extends State<AssetsHistoryPage> {
                 ScaffoldMessenger.maybeOf(context)?.showSnackBar(
                     SnackBar(content: Styled.text(res.msg).fontSize(13)));
               }
-              setState(() {
-                _infos = mergaData(_infos, res.data ?? []);
-              });
-              if (_infos.length < 20) {
+              // print("_infos.length:${_infos.length}");
+              if ((res.data ?? []).length < 20) {
                 _refreshController.loadNoData();
               } else {
                 _refreshController.loadComplete();
               }
+              setState(() {
+                _infos = mergaData(_infos, res.data ?? []);
+              });
             });
           },
           child: [
