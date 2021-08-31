@@ -1,11 +1,11 @@
 part of './AssetHistoryPage.dart';
 
-List<AssetsHistoryPageSlot> defaultSlots = [
+List<AssetsHistoryPageSlot> defaultUaserAssetHistorySlots = [
   AssetsHistoryPageSlot(),
   AssetsHistoryPageSlot(filter: "recharge", cn: "充值"),
   AssetsHistoryPageSlot(filter: "withdraw", cn: "提现"),
-  AssetsHistoryPageSlot(filter: "commission", cn: "推广收益"),
-  AssetsHistoryPageSlot(filter: "safetybond", cn: "保障金"),
+  // AssetsHistoryPageSlot(filter: "commission", cn: "推广收益"),
+  // AssetsHistoryPageSlot(filter: "safetybond", cn: "保障金"),
   AssetsHistoryPageSlot(filter: "system", cn: "系统"),
 ];
 

@@ -29,7 +29,7 @@ class AssetsHistoryPage extends StatefulWidget {
   AssetsHistoryPage({this.defaultReson, Key? key, this.status = const []})
       : super(key: key) {
     if (this.status.length == 0) {
-      this.status = defaultSlots;
+      this.status = defaultUaserAssetHistorySlots;
     }
   }
   @override
