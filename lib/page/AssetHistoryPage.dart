@@ -11,6 +11,8 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:styled_widget/styled_widget.dart';
 import 'package:date_format/date_format.dart' as dfmt;
 part 'AssetHistoryPageSlot.dart';
+part 'AssetHistoryPageSlotRecharge.dart';
+part 'AssetHistoryPageSlotWithdraw.dart';
 
 class AssetsHistoryPageSlot extends Object {
   final String filter;
