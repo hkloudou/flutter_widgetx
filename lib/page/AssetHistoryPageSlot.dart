@@ -25,7 +25,7 @@ Widget _getDefaultItem(
         .alignment(Alignment.centerLeft)
         .padding(vertical: 8),
     [
-      Styled.text("数量(${e.asset == 'voucher' ? '点卡' : e.asset.toUpperCase()})",
+      Styled.text("数量(${EConfig.getAssetName(e.asset).toUpperCase()})",
               style: style1)
           .expanded(flex: 1),
       Styled.text("状态", style: style1)
