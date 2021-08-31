@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 // import '../core/core.dart';
 // import '../utils/DioAdapter.dart';
-import 'package:overlay_support/overlay_support.dart';
+// import 'package:overlay_support/overlay_support.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:styled_widget/styled_widget.dart';
 import 'package:date_format/date_format.dart' as dfmt;
@@ -29,7 +29,7 @@ class AssetsHistoryPage extends StatefulWidget {
   AssetsHistoryPage({this.defaultReson, Key? key, this.status = const []})
       : super(key: key) {
     if (this.status.length == 0) {
-      this.status = _defaultSlots;
+      this.status = defaultSlots;
     }
   }
   @override
