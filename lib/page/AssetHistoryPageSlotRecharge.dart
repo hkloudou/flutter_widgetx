@@ -74,14 +74,6 @@ Widget getRechargeUserAssetHistoryDefaultItem(
                           .fontSize(16)
                           .bold()
                           .padding(vertical: 10),
-                      // e.step == 10
-                      //     ? Container()
-                      //     : IconButton(
-                      //         icon: Icon(Icons.refresh_outlined),
-                      //         onPressed: () {
-                      //           Navigator.of(context).pop();
-                      //           _refreshController.requestRefresh();
-                      //         })
                     ].toRow(mainAxisAlignment: MainAxisAlignment.spaceBetween),
                     ...[
                       Styled.text("币种")
