@@ -235,7 +235,7 @@ class _WithDrawPageState extends State<WithDrawPage> {
                     FocusScope.of(context).requestFocus(FocusNode());
 
                     showProgress(context);
-                    DioAdapter().getRequest("system", "asset.withdraw",
+                    DioAdapter().getRequest("system", "/asset.withdraw",
                         sign: true,
                         cancelToken: _cancelToken,
                         queryParameters: {
