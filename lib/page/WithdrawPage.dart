@@ -152,7 +152,7 @@ class _WithDrawPageState extends State<WithDrawPage> {
                     mainAxisSize: MainAxisSize.min)),
       ),
       [
-        (u.usdt == null)
+        (!u.ready)
             ? [
                 Styled.text("读取中")
                     .textColor(EColor.second)
@@ -165,7 +165,8 @@ class _WithDrawPageState extends State<WithDrawPage> {
                   size: 12,
                 )
               ].toRow()
-            : Styled.text("可用余额 ${u.usdt?.free.toStringAsRoundDown(2)} USDT")
+            : Styled.text(
+                    "可用余额 ${u.usdt?.free.toStringAsRoundDown(2) ?? "0.00"} USDT")
                 .textColor(EColor.second)
                 .textColor(Colors.black)
                 .bold()
