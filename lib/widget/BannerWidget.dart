@@ -1,11 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:corex/corex.dart';
 import 'package:provider/provider.dart';
 
 // import '../core/core.dart';
 // import '../status/CfgSimpleBannerStatus.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_blurhash/flutter_blurhash.dart';
+
 import 'package:styled_widget/styled_widget.dart';
 // Consumer
 // ignore: implementation_imports

@@ -16,7 +16,7 @@ import 'package:styled_widget/styled_widget.dart';
 class PromotionPagePic extends StatefulWidget {
   // TabController _tabController = new TabController(vsync: this, length: 2);
 
-  PromotionPagePic({required this.ivtCode});
+  PromotionPagePic({required this.ivtCode, this.isDemo = false});
   @override
   State<PromotionPagePic> createState() {
     return new _PromotionPagePicState();
@@ -24,6 +24,7 @@ class PromotionPagePic extends StatefulWidget {
 
   // final UsePromotion item;
   final String ivtCode;
+  final bool isDemo;
 }
 
 class _PromotionPagePicState extends State<PromotionPagePic> {
@@ -106,8 +107,10 @@ class _PromotionPagePicState extends State<PromotionPagePic> {
                   // .backgroundColor(Colors.white)
                   .clipRRect(all: 20)
                   .padding(all: 5),
-              _getQrcode(
-                  config!.url.replaceAll(r"{code}", widget.ivtCode.toString()))
+              _getQrcode(widget.isDemo
+                  ? "演示版不支持邀请"
+                  : config!.url
+                      .replaceAll(r"{code}", widget.ivtCode.toString()))
             ].toColumn().positioned(bottom: 30 + 50),
     ]
         .toStack(alignment: Alignment.center)
