@@ -71,8 +71,8 @@ class NotificationWidget extends StatelessWidget {
             color: iconColor,
           ).padding(left: 10).gestures(
               behavior: HitTestBehavior.opaque,
-              onTap: () =>
-                  showAnimatePage(context, SimpleNotificationCenterPage())),
+              onTap: () => showAnimatePage(
+                  context, SimpleNotificationCenterPage(items: items))),
         ),
       ].toRow();
     });
