@@ -6,10 +6,14 @@ import 'package:date_format/date_format.dart' as dfmt;
 
 // import '../status/CfgSimpleNotificationStatus.dart';
 
+// ignore: implementation_imports
+import 'package:corex/src/entrys/cfg_simple_notification.dart';
+
 //SimpleNotificationCenterPage 简单用户通知中心模块
 class SimpleNotificationCenterPage extends StatelessWidget {
-  SimpleNotificationCenterPage();
+  SimpleNotificationCenterPage({this.items});
   //
+  final List<CfgSimpleNotificationItem>? items;
   // CfgSimpleNotificationStatus
   @override
   Widget build(BuildContext context) {
@@ -19,8 +23,12 @@ class SimpleNotificationCenterPage extends StatelessWidget {
       ),
       body: Consumer<CfgSimpleNotificationStatus>(
         builder: (_, a, child) {
+          var tmp = a.items;
+          if (items != null) {
+            tmp = items ?? [];
+          }
           return [
-            ...a.items
+            ...tmp
                 .map((e) => [
                       [
                         Styled.text(

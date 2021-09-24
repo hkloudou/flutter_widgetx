@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:styled_widget/styled_widget.dart';
 import '../page/SimpleNotificationCenterPage.dart';
+// ignore: implementation_imports
+import 'package:corex/src/entrys/cfg_simple_notification.dart';
 
 class NotificationWidget extends StatelessWidget {
   const NotificationWidget({
@@ -13,11 +15,13 @@ class NotificationWidget extends StatelessWidget {
     this.textColor = Colors.black,
     this.iconSize = 18,
     this.fontSize = 12,
+    this.items,
   }) : super(key: key);
   final Color iconColor;
   final Color textColor;
   final double iconSize;
   final double fontSize;
+  final List<CfgSimpleNotificationItem>? items;
   @override
   Widget build(BuildContext context) {
     return Consumer<CfgSimpleNotificationStatus>(builder: (_, a, child) {
@@ -25,6 +29,9 @@ class NotificationWidget extends StatelessWidget {
         return Styled.widget();
       }
       var notices = a.items;
+      if (items != null) {
+        notices = items ?? [];
+      }
       var controller = MarqueeController();
       List<String> str = notices.map((e) => e.title).toList();
       return [

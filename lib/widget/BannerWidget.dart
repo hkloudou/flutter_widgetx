@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:styled_widget/styled_widget.dart';
 // Consumer
+// ignore: implementation_imports
+import 'package:corex/src/entrys/cfg_simple_banner.dart';
 
 class BannerWidget extends StatelessWidget {
   const BannerWidget({
@@ -16,11 +18,13 @@ class BannerWidget extends StatelessWidget {
     this.textColor = Colors.black,
     this.iconSize = 18,
     this.fontSize = 12,
+    this.items,
   }) : super(key: key);
   final Color iconColor;
   final Color textColor;
   final double iconSize;
   final double fontSize;
+  final List<CfgSimpleBannerItem>? items;
   @override
   Widget build(BuildContext context) {
     return Consumer<CfgSimpleBannerStatus>(builder: (_, a, child) {
@@ -28,7 +32,9 @@ class BannerWidget extends StatelessWidget {
         return Styled.widget();
       }
       var banners = a.items;
-
+      if (items != null) {
+        banners = items ?? [];
+      }
       if (banners.length == 0 || !a.ready) {
         return Container();
       }
